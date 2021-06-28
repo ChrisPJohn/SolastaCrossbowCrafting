@@ -1,0 +1,2 @@
+SolastaCrossbowCrafting/&FancySkeletonTitle	Fancy Skeleton
+SolastaCrossbowCrafting/&FancySkeletonDescription	I'm a fancy skeleton
