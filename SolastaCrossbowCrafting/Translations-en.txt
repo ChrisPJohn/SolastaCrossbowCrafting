@@ -1,2 +1,20 @@
-SolastaCrossbowCrafting/&FancySkeletonTitle	Fancy Skeleton
-SolastaCrossbowCrafting/&FancySkeletonDescription	I'm a fancy skeleton
+Equipment/&Enchanted_LightCrossbow_Accuracy_Title Light Crossbow of Accuracy
+Equipment/&Enchanted_LightCrossbow_Sharpshooting_Title Light Crossbow of Sharpshooting
+Equipment/&Enchanted_LightCrossbow_Lightbringer_Title Lightbringer Light Crossbow
+Equipment/&Enchanted_LightCrossbow_Stormbow_Title Light Stormcrossbow
+Equipment/&Enchanted_LightCrossbow_Medusa_Title Medusa Light Crossbow
+Equipment/&Enchanted_HeavyCrossbow_Accuracy_Title Heavy Crossbow of Accuracy
+Equipment/&Enchanted_HeavyCrossbow_Sharpshooting_Title Heavy Crossbow of Sharpshooting
+Equipment/&Enchanted_HeavyCrossbow_Lightbringer_Title Lightbringer Heavy Crossbow
+Equipment/&Enchanted_HeavyCrossbow_Stormbow_Title Heavy Stormcrossbow
+Equipment/&Enchanted_HeavyCrossbow_Medusa_Title Medusa Heavy Crossbow
+Equipment/&Enchanted_LightCrossbow_Accuracy_Description This enchanted weapon was forged using the ancient knowledge of Colthannin's master bowyers. Its original design bore the sigil of Defineth Sharpsight, a renowned sylvan elf enchanter.
+Equipment/&Enchanted_LightCrossbow_Sharpshooting_Description This enchanted weapon was forged using the ancient knowledge of Colthannin's master bowyers. The Coedymwarth preferred to deal with Manacalon's arcanists physically rather than magically. Its best archers were given crossbows, the creation of Defineth Sharpsight.
+Equipment/&Enchanted_LightCrossbow_Lightbringer_Description This enchanted weapon was forged using the ancient knowledge of Colthannin's master bowyers. It was designed by Elgador Keenspirit, Magesmith of the Arcaneum to support combat against undead creatures.
+Equipment/&Enchanted_LightCrossbow_Stormbow_Description This enchanted weapon was forged using the ancient knowledge of Colthannin's master bowyers. It was designed by Galar Stromforge, the first dwarven smith to harness the power of storm in a weapon – to devastating effect!
+Equipment/&Enchanted_LightCrossbow_Medusa_Description This enchanted weapon was forged using the ancient knowledge of Colthannin's master bowyers. Magic melded medusa coral and hardwood to create a deadly bow, favored by the boarding parties of island halflings.
+Equipment/&Enchanted_HeavyCrossbow_Accuracy_Description This enchanted weapon was forged using the ancient knowledge of Colthannin's master bowyers. Its original design bore the sigil of Defineth Sharpsight, a renowned sylvan elf enchanter.
+Equipment/&Enchanted_HeavyCrossbow_Sharpshooting_Description This enchanted weapon was forged using the ancient knowledge of Colthannin's master bowyers. The Coedymwarth preferred to deal with Manacalon's arcanists physically rather than magically. Its best archers were given crossbows, the creation of Defineth Sharpsight.
+Equipment/&Enchanted_HeavyCrossbow_Lightbringer_Description This enchanted weapon was forged using the ancient knowledge of Colthannin's master bowyers. It was designed by Elgador Keenspirit, Magesmith of the Arcaneum to support combat against undead creatures.
+Equipment/&Enchanted_HeavyCrossbow_Stormbow_Description This enchanted weapon was forged using the ancient knowledge of Colthannin's master bowyers. It was designed by Galar Stromforge, the first dwarven smith to harness the power of storm in a weapon – to devastating effect!
+Equipment/&Enchanted_HeavyCrossbow_Medusa_Description This enchanted weapon was forged using the ancient knowledge of Colthannin's master bowyers. Magic melded medusa coral and hardwood to create a deadly bow, favored by the boarding parties of island halflings.

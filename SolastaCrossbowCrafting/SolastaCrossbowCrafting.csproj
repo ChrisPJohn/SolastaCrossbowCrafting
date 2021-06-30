@@ -12,7 +12,7 @@
 		<Authors>Zappastuff</Authors>
 		<Company />
 		<Product />
-		<Copyright>Copyright © 2020</Copyright>
+		<Copyright>Copyright ï¿½ 2020</Copyright>
 		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
 		<Version>0.0.2</Version>
 	</PropertyGroup>
@@ -409,5 +409,9 @@
 		<None Update="Translations-en.txt">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Menus\Viewers\" />
 	</ItemGroup>
 </Project>

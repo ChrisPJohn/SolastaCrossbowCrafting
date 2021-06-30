@@ -6,12 +6,16 @@ using UnityModManagerNet;
 using SolastaModApi;
 using ModKit;
 using ModKit.Utility;
+using System.Collections.Generic;
+using SolastaModApi.Extensions;
 
 namespace SolastaCrossbowCrafting
 {
     public static class Main
     {
         public static readonly string MOD_FOLDER = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+
+        public static Guid ModGuidNamespace = new Guid("6eff8e23-1b2f-4e48-8cde-3abda9d4bc3b");
 
         [Conditional("DEBUG")]
         internal static void Log(string msg) => Logger.Log(msg);
@@ -61,24 +65,95 @@ namespace SolastaCrossbowCrafting
             return true;
         }
 
+        private struct MagicItemDataHolder
+        {
+            public string Name;
+            public ItemDefinition Item;
+            public RecipeDefinition Recipe;
+
+            public MagicItemDataHolder(string name, ItemDefinition item, RecipeDefinition recipe)
+            {
+                this.Name = name;
+                this.Item = item;
+                this.Recipe = recipe;
+            }
+        }
+
         internal static void OnGameReady()
         {
-            // example: use the ModApi to get a skeleton blueprint
-            //
-            var skeleton = DatabaseHelper.MonsterDefinitions.Skeleton;
+            List<ItemDefinition> BaseCrossbows = new List<ItemDefinition>()
+            {
+                DatabaseHelper.ItemDefinitions.LightCrossbow,
+                DatabaseHelper.ItemDefinitions.HeavyCrossbow,
+            };
 
-            // example: how to add TEXTS to the game right
-            //
-            // . almost every game blueprint has a GuiPresentation attribute
-            // . GuiPresentation has a Title and a Description
-            // . Create an entry in Translations-en.txt for those (tab separated)
-            // . Refer to those entries when assigning values to these attributes
-            //
-            // . DON'T FORGET TO CLEAN UP THIS EXAMPLE AND Translations-en.txt file
-            // . ugly things will happen if you don't
-            //
-            skeleton.GuiPresentation.Title = "SolastaCrossbowCrafting/&FancySkeletonTitle";
-            skeleton.GuiPresentation.Description = "SolastaCrossbowCrafting/&FancySkeletonDescription";
+            List<ItemDefinition> PossiblePrimedItemsToReplace = new List<ItemDefinition>()
+            {
+                DatabaseHelper.ItemDefinitions.Primed_Longbow,
+                DatabaseHelper.ItemDefinitions.Primed_Shortbow,
+            };
+
+            List<MagicItemDataHolder> BowsToCopy = new List<MagicItemDataHolder>()
+            {
+                // Same as +1
+                new MagicItemDataHolder("Accuracy", DatabaseHelper.ItemDefinitions.Enchanted_Longbow_Of_Accurary,
+                    DatabaseHelper.RecipeDefinitions.Recipe_Enchantment_LongbowOfAcurracy),
+                // Same as +2
+                new MagicItemDataHolder("Sharpshooting", DatabaseHelper.ItemDefinitions.Enchanted_Shortbow_Of_Sharpshooting,
+                    DatabaseHelper.RecipeDefinitions.Recipe_Enchantment_ShortbowOfSharpshooting),
+                new MagicItemDataHolder("Lightbringer", DatabaseHelper.ItemDefinitions.Enchanted_Longbow_Lightbringer,
+                    DatabaseHelper.RecipeDefinitions.Recipe_Enchantment_LongbowLightbringer),
+                new MagicItemDataHolder("Stormbow", DatabaseHelper.ItemDefinitions.Enchanted_Longbow_Stormbow,
+                    DatabaseHelper.RecipeDefinitions.Recipe_Enchantment_LongsbowStormbow),
+                new MagicItemDataHolder("Medusa", DatabaseHelper.ItemDefinitions.Enchanted_Shortbow_Medusa,
+                    DatabaseHelper.RecipeDefinitions.Recipe_Enchantment_ShortbowMedusa),
+            };
+
+            foreach (ItemDefinition baseItem in BaseCrossbows)
+            {
+                foreach(MagicItemDataHolder itemData in BowsToCopy)
+                {
+                    // Generate Crossbow items
+                    ItemDefinition newCrossbow = ItemBuilder.BuildNewMagicWeapon(baseItem, itemData.Item, itemData.Name);
+                    // Generate recipes for crossbows
+                    string recipeName = "RecipeEnchanting" + newCrossbow.Name;
+                    RecipeBuilder builder = new RecipeBuilder(recipeName, GuidHelper.Create(Main.ModGuidNamespace, recipeName).ToString());
+                    builder.AddIngredient(baseItem);
+                    foreach(IngredientOccurenceDescription ingredient in itemData.Recipe.Ingredients)
+                    {
+                        if (PossiblePrimedItemsToReplace.Contains(ingredient.ItemDefinition))
+                        {
+                            continue;
+                        }
+                        builder.AddIngredient(ingredient);
+                    }
+                    builder.SetCraftedItem(newCrossbow);
+                    builder.SetCraftingCheckData(itemData.Recipe.CraftingHours, itemData.Recipe.CraftingDC, itemData.Recipe.ToolType);
+                    RecipeDefinition newRecipe = builder.AddToDB();
+                    // Stock Crossbow Recipes
+                    ItemDefinition craftintgManual = ItemBuilder.BuilderCopyFromItemSetRecipe(newRecipe, DatabaseHelper.ItemDefinitions.CraftingManual_Enchant_Longbow_Of_Accuracy,
+                    "CraftingManual_" + newRecipe.Name, DatabaseHelper.ItemDefinitions.CraftingManualRemedy.GuiPresentation, 200);
+                    StockItem(DatabaseHelper.MerchantDefinitions.Store_Merchant_Circe, craftintgManual);
+                    StockItem(DatabaseHelper.MerchantDefinitions.Store_Merchant_Gorim_Ironsoot_Cyflen_GeneralStore, craftintgManual);
+                }
+
+            }
+            // Bolt +2
         }
+
+        private static void StockItem(MerchantDefinition merchant, ItemDefinition item)
+        {
+            StockUnitDescription stockUnit = new StockUnitDescription();
+            stockUnit.SetItemDefinition(item);
+            stockUnit.SetInitialAmount(1);
+            stockUnit.SetInitialized(true);
+            stockUnit.SetMaxAmount(2);
+            stockUnit.SetMinAmount(1);
+            stockUnit.SetStackCount(1);
+            stockUnit.SetReassortAmount(1);
+            merchant.StockUnitDescriptions.Add(stockUnit);
+        }
+
+
     }
 }
